@@ -24,16 +24,23 @@ async def on_message(message):
         enteredtime = message.content.split()[1]
         enteredtime2 = int(enteredtime)
         if timelength == "m":
-            timefrom = int(enteredtime2 * 60)
-
+            if int(enteredtime) >= 31:
+                await client.send_message(message.channel, "```SORRY, MAX TIME IS 30M```")
+                timefrom = -2
+            else:
+                timefrom = int(enteredtime2 * 60)
+                await client.send_message(message.channel, "```" + str(timefrom) + "```")
+                time.sleep(1)
+                
         elif timelength == "h":
-            timefrom = int(enteredtime2 * 3600)
+            await client.send_message(message.channel, "```SORRY, THIS FUNCTION HAS BEEN DISCONTINUED```")
+            timefrom = -2
 
         elif timelength == "s":
             timefrom = enteredtime
-            
-        await client.send_message(message.channel, "```" + str(timefrom) + "```")
-        time.sleep(1)
+            await client.send_message(message.channel, "```" + str(timefrom) + "```")
+            time.sleep(1)
+
         while int(timefrom) >= 1:
             timefrom = int(timefrom) - int(1)
             await client.send_message(message.channel, "```" + str(timefrom) + "```")
